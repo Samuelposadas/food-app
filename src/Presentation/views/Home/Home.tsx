@@ -1,20 +1,14 @@
 import React from 'react'
 
 //componentes
-import {  Image, ImageBackground, StyleSheet, Text, TextInput, ToastAndroid, View,TouchableOpacity } from 'react-native';
+import {  Image, ImageBackground, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
 import Button from '../../Components/Button/Button';
-
-//theme
 import { COLORS } from '../../theme/theme';
 
-//hook
-import useLogin from './useLogin';
 
 
 
-const LoginScreen = () => {
-    const {navigate}=useLogin()
-    
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <ImageBackground style={styles.backgroundImage} alt="Background image" source={require("../../../assets/Background.jpg")}/>
@@ -35,9 +29,7 @@ const LoginScreen = () => {
         <Button onPress={()=>ToastAndroid.show("hola",4)} text='Log in'/>
        <View style={styles.formRegister}>
         <Text>No tienes cuenta?</Text>
-        <TouchableOpacity onPress={()=>navigate("RegisterScreen")}>
         <Text style={styles.formRegisterText}>Registrate</Text>
-        </TouchableOpacity>
        </View>
       </View>
 
@@ -45,7 +37,7 @@ const LoginScreen = () => {
   )
 }
 
-export default LoginScreen
+export default HomeScreen
 
 const styles = StyleSheet.create({
     container: {

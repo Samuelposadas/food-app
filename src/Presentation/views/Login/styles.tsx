@@ -1,44 +1,8 @@
-import React from 'react'
-
-//componentes
-import {  Image, ImageBackground, StyleSheet, Text, TextInput, ToastAndroid, View } from 'react-native';
-import Button from '../../Components/Button/Button';
+import { StyleSheet } from "react-native";
+//theme
 import { COLORS } from '../../theme/theme';
 
-
-
-const HomeScreen = () => {
-  return (
-    <View style={styles.container}>
-      <ImageBackground style={styles.backgroundImage} alt="Background image" source={require("../../../assets/Background.jpg")}/>
-      <View style={styles.logoContainer}>
-        <Image style={styles.logoImage}  source={require("../../../assets/Logo.jpg")} alt='Logo image' />
-        <Text style={styles.title}>Food App</Text>
-      </View>
-      <View style={styles.form}>
-       <Text style={styles.formText}>Ingresar</Text>
-       <View style={styles.inputContainer}>
-       <Image style={styles.userIcon} source={require("../../../assets/User.jpg")} />
-       <TextInput style={styles.formTextInput} placeholder='Email adress' keyboardType='email-address' />
-       </View>
-       <View style={styles.inputContainer}>
-       <Image style={styles.userIcon} source={require("../../../assets/Password.jpg")} />
-       <TextInput style={styles.formTextInput} placeholder='Password' keyboardType='default' secureTextEntry />
-       </View>
-        <Button onPress={()=>ToastAndroid.show("hola",4)} text='Log in'/>
-       <View style={styles.formRegister}>
-        <Text>No tienes cuenta?</Text>
-        <Text style={styles.formRegisterText}>Registrate</Text>
-       </View>
-      </View>
-
-    </View>
-  )
-}
-
-export default HomeScreen
-
-const styles = StyleSheet.create({
+export const HomeStyle = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: 'black',
