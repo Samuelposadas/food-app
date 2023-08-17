@@ -1,6 +1,6 @@
 export type FormRegister = {
     name : string,
-    lastName : string,
+    lastname : string,
     email : string,
     phone : number | null,
     password : string

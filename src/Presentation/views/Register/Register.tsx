@@ -15,7 +15,7 @@ import RegisterViewModel from "./ViewModel";
 
 const RegisterScreen = () => {
 
-    const {confirmPassword,email,lastName,name,password,phone,onChange} = RegisterViewModel()
+    const {confirmPassword,email,lastname,name,password,phone,onChange,register} = RegisterViewModel()
     return (
         <View style={RegisterStyle.container}>
           <ImageBackground style={RegisterStyle.backgroundImage} alt="Background image" source={require("../../../../assets/Background.jpg")}/>
@@ -26,12 +26,12 @@ const RegisterScreen = () => {
           <View style={RegisterStyle.form}>
            <Text style={RegisterStyle.formText}>Register</Text>
            <CustomInput image={require("../../../../assets/UserRegister1.jpg")} onChange={onChange} placeholder="Name" value={name} property="name" keyboard="default"/>
-           <CustomInput image={require("../../../../assets/UserRegister2.jpg")} onChange={onChange} placeholder="Last name" value={lastName} property="lastName"  keyboard="default"/>
+           <CustomInput image={require("../../../../assets/UserRegister2.jpg")} onChange={onChange} placeholder="Last name" value={lastname} property="lastname"  keyboard="default"/>
            <CustomInput image={require("../../../../assets/EmaillAddress.jpg")} onChange={onChange} placeholder="Email address" value={email} property="email"  keyboard="email-address"/>
            <CustomInput image={require("../../../../assets/Phone.jpg")} onChange={onChange} placeholder="Phone" value={phone} property="phone" keyboard="numeric"/>
            <CustomInput image={require("../../../../assets/Password1.jpg")} onChange={onChange} placeholder="Password" secureTextEntry value={password} property="password" keyboard="default"/>
            <CustomInput image={require("../../../../assets/Password2.jpg")} onChange={onChange} placeholder="Confirm password" secureTextEntry value={confirmPassword} property="confirmPassword" keyboard="default"/>
-            <Button onPress={()=>ToastAndroid.show("hola",4)} text='Register now'/>
+            <Button onPress={register} text='Register now'/>
            <View style={RegisterStyle.formRegister}>
    
             

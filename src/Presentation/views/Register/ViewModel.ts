@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 
 //type
 import { FormRegister } from './type'
+import { api } from '../../../Data/sources/remote/api/Api'
 
 const RegisterViewModel = () => {
     const [form, setForm] = useState<FormRegister>({
         name : "",
-        lastName :"",
+        lastname :"",
         email : "",
         phone : null ,
         password : "",
@@ -20,9 +21,21 @@ const RegisterViewModel = () => {
         })
     }
 
+    const register =async() =>{
+      try {
+        
+       const response =  await api.post("/users/create",form)
+       console.log(response);
+       
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
   return {
     onChange,
-    ...form
+    ...form,
+    register
   }
 }
 
