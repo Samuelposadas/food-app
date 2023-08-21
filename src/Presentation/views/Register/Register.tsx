@@ -1,4 +1,4 @@
-import React from "react"
+import React,{useEffect} from "react"
 
 //componentes
 import {  Image, ImageBackground,  ScrollView,  Text,  ToastAndroid, View,} from 'react-native';
@@ -15,7 +15,17 @@ import RegisterViewModel from "./ViewModel";
 
 const RegisterScreen = () => {
 
-    const {confirmPassword,email,lastname,name,password,phone,onChange,register} = RegisterViewModel()
+ 
+
+    const {confirmPassword,email,lastname,name,password,phone,onChange,register,error} = RegisterViewModel()
+
+    useEffect(() => {
+      
+      if(error !== ""){
+        ToastAndroid.show(error,ToastAndroid.LONG)
+      }
+      
+    }, [error])
     return (
         <View style={RegisterStyle.container}>
           <ImageBackground style={RegisterStyle.backgroundImage} alt="Background image" source={require("../../../../assets/Background.jpg")}/>
@@ -32,7 +42,7 @@ const RegisterScreen = () => {
            <CustomInput image={require("../../../../assets/Phone.jpg")} onChange={onChange} placeholder="Phone" value={phone} property="phone" keyboard="numeric"/>
            <CustomInput image={require("../../../../assets/Password1.jpg")} onChange={onChange} placeholder="Password" secureTextEntry value={password} property="password" keyboard="default"/>
            <CustomInput image={require("../../../../assets/Password2.jpg")} onChange={onChange} placeholder="Confirm password" secureTextEntry value={confirmPassword} property="confirmPassword" keyboard="default"/>
-            <Button onPress={()=>register} text='Register now'/>
+            <Button onPress={register} text='Register now'/>
            <View style={RegisterStyle.formRegister}>
    
             
