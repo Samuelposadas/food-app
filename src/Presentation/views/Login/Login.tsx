@@ -1,7 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 //componentes
-import {  Image, ImageBackground, Text, ToastAndroid, View,TouchableOpacity } from 'react-native';
+import {  Image, ImageBackground, Text,  View,TouchableOpacity } from 'react-native';
 import Button from '../../Components/Button/Button';
 import CustomInput from '../../Components/CustomInput/TextInput';
 
@@ -10,11 +10,21 @@ import { HomeStyle } from './styles';
 
 //ViewModel
 import LoginViewModel from './ViewModel';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList } from '../../../../App';
 
 
+interface Props extends StackScreenProps<RootStackParamList,"LoginScreen">{};
 
-const LoginScreen = () => {
-    const {navigate,emailAddress,onChange,password}=LoginViewModel()
+const LoginScreen = ({navigation}:Props) => {
+    const {email,onChange,password,login,user}=LoginViewModel()
+
+    useEffect(() => {
+      if(user?.id !== null && user?.id !== undefined){
+        navigation.replace("ProfileInfoScreen")
+      }
+    }, [user])
+    
 
   return (
     <View style={HomeStyle.container}>
@@ -25,12 +35,14 @@ const LoginScreen = () => {
       </View>
       <View style={HomeStyle.form}>
        <Text style={HomeStyle.formText}>Ingresar</Text>
-        <CustomInput image={require('../../../../assets/User.jpg')} placeholder='Email' onChange={onChange} keyboard='email-address' property='emailAddress' value={emailAddress} />
+        <CustomInput image={require('../../../../assets/User.jpg')} placeholder='Email' onChange={onChange} keyboard='email-address' property='email' value={email} />
         <CustomInput  image={require('../../../../assets/Password.jpg')} placeholder='Password' onChange={onChange} keyboard='default' property='password' value={password} secureTextEntry/>
-        <Button onPress={()=>ToastAndroid.show(`${emailAddress},${password}`,4)} text='Log in'/>
+        <Button onPress={()=>{login()
+        }
+        } text='Log in'/>
        <View style={HomeStyle.formRegister}>
         <Text>Don't have an account?</Text>
-        <TouchableOpacity onPress={()=>navigate("RegisterScreen")}>
+        <TouchableOpacity onPress={()=>navigation.navigate("RegisterScreen")}>
         <Text style={HomeStyle.formRegisterText}>Sign up</Text>
         </TouchableOpacity>
        </View>

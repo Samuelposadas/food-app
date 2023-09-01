@@ -1,7 +1,7 @@
 import React,{useEffect} from "react"
 
 //componentes
-import {  Image, ImageBackground,  ScrollView,  Text,  ToastAndroid, View,} from 'react-native';
+import {  Image, ImageBackground,  ScrollView,  Text,  ToastAndroid,  TouchableOpacity, View,} from 'react-native';
 import Button from '../../Components/Button/Button';
 import CustomInput from "../../Components/CustomInput/TextInput";
 
@@ -10,6 +10,7 @@ import { RegisterStyle } from "./styles";
 
 //ViewModel
 import RegisterViewModel from "./ViewModel";
+import ModalPickImage from "../../Components/Modal/ModalPickImage";
 
 
 
@@ -17,7 +18,7 @@ const RegisterScreen = () => {
 
  
 
-    const {confirmPassword,email,lastname,name,password,phone,onChange,register,error} = RegisterViewModel()
+    const {confirmPassword,email,lastname,name,password,phone,onChange,register,error,pickImage,image,modal,setModal,takePhoto} = RegisterViewModel()
 
     useEffect(() => {
       
@@ -30,7 +31,12 @@ const RegisterScreen = () => {
         <View style={RegisterStyle.container}>
           <ImageBackground style={RegisterStyle.backgroundImage} alt="Background image" source={require("../../../../assets/Background.jpg")}/>
           <View style={RegisterStyle.logoContainer}>
-            <Image style={RegisterStyle.logoImage}  source={require("../../../../assets/UserRegister.jpg")} alt='Logo image' />
+            <TouchableOpacity onPress={()=>setModal(!modal)}>
+              {image == "" ?  <Image style={RegisterStyle.logoImage}  source={require("../../../../assets/UserRegister.jpg")} alt='Logo image' /> :
+               <Image style={RegisterStyle.logoImage}  source={{uri:image}} alt='user image' />
+              }
+           
+            </TouchableOpacity>
             <Text style={RegisterStyle.title}>Upload image</Text>
           </View>
           <View style={RegisterStyle.form}>
@@ -49,7 +55,9 @@ const RegisterScreen = () => {
            </View>
            </ScrollView>
           </View>
-    
+              <ModalPickImage modalState={modal} setModalState={setModal} openGallery={pickImage} 
+              openCamera={takePhoto} />
+              
         </View>
       )
 }

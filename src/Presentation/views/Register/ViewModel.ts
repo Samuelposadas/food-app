@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-
-//type
 import { registerAuthUseCase } from '../../../Domain/useCases/auth/registerAuth'
 import { User } from '../../../Domain/entities/User'
+import * as ImagePicker from  "expo-image-picker"
+
 
 
 const RegisterViewModel = () => {
@@ -12,9 +12,35 @@ const RegisterViewModel = () => {
         email : "",
         phone : null ,
         password : "",
-        confirmPassword : ""
+        confirmPassword : "",
+        image : "",
     })
-    const [error, setError] = useState("")
+    const [modal, setModal] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
+    const [file, setFile] = useState<ImagePicker.ImagePickerAsset   >()
+
+    const pickImage = async()=>{
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes : ImagePicker.MediaTypeOptions.All,
+        allowsEditing : true,
+        quality:1
+      })
+      if(!result.canceled){
+        onChange("image",result.assets[0].uri)
+        setFile(result.assets[0])
+      }
+    }
+    const takePhoto = async()=>{
+      const result = await ImagePicker.launchCameraAsync({
+        mediaTypes : ImagePicker.MediaTypeOptions.All,
+        allowsEditing : true,
+        quality:1
+      })
+      if(!result.canceled){
+        onChange("image",result.assets[0].uri)
+        setFile(result.assets[0])
+      }
+    }
 
     const onChange = (property : string , value : any) =>{
         setForm({
@@ -65,7 +91,11 @@ const RegisterViewModel = () => {
     onChange,
     ...form,
     register,
-    error
+    error,
+    pickImage,
+    modal,
+    setModal,
+    takePhoto
   }
 }
 
